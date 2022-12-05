@@ -1,62 +1,42 @@
-#include <stdio.h>
-
-int main(){
-    int k;
-    switch (k)
-    {
-    case 1 :
-    case 2 :
-        j = 2*k-1;
-        break;
-    case 3 :
-    case 5 :
-        j = 3*k-1;
-        break;
-    case 4 :
-        j=4*k-1;
-        break;
-    case 6 :
-    case 7 :
-    case 8 :
-        j=k-2;
-        break;
-    default:
-        break;
+class Solution {
+public:
+    int sumSubarrayMins(vector<int>& arr) {        
+        vector<int> left(arr.size());
+        vector<int> right(arr.size());      
+        stack<int> s1,s2;        
+        int ans=0;
+        
+        for(int i = 0 ; i < left.size();i++)left[i]=i+1;
+        for(int i = 0 ; i < right.size();i++)right[i]=right.size()-i;
+        
+        for(int i = 0;i<arr.size();i++){
+            while(!s1.empty() && arr[s1.top()] > arr[i]){
+                s1.pop();
+            }   
+            
+            if(!s1.empty())
+                left[i] = i-s1.top();
+            
+            
+            s1.push(i);          
+            
+        }
+        
+        
+        for(int i = 0;i<arr.size();i++){
+            while(!s2.empty()&&arr[s2.top()]>arr[i]){  
+                right[s2.top()] = i-s2.top();
+                s2.pop();
+            }
+            s2.push(i);
+        }      
+        
+        int m = 1e9+7;
+        
+        for(int i = 0 ; i <arr.size();i++)
+            ans= (ans+ static_cast<long>(left[i])*right[i]*(long long)arr[i])%m;
+        
+        
+        return ans;
     }
-    return 0;
-}
-
-j = -3;
-for (i = 0; i < 3 ; i++) {
-    if(j==0 || j==1){
-        j--;
-    }else if(j==-2){
-        j+=2;
-    }else{
-        j=0;
-    }
-    if (j > 0) 
-        i=2;
-    else
-        j = 3 - i;
-}
-    switch (j + 2) {
-    case 3:
-    case 2: j--;
-    break;
-    case 0: j += 2; break;
-    default: j = 0;
-}
-
-j = -3;
-for (i = 0; i < 3; i++) {
-switch (j + 2) {
-case 3:
-case 2: j--;
-break;
-case 0: j += 2; break;
-default: j = 0;
-}
-if (j > 0) break;
-j = 3 - i
-}
+};
