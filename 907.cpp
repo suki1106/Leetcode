@@ -34,7 +34,7 @@ public:
         int m = 1e9+7;
         
         for(int i = 0 ; i <arr.size();i++)
-            ans= (ans+ static_cast<long>(left[i])*right[i]*(long long)arr[i])%m;
+            ans= (ans+ static_cast<long>(left[i])*right[i]*arr[i])%m;
         
         
         return ans;
